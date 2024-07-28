@@ -1,0 +1,149 @@
+/*
+@name:Default
+@author:Sourcehair
+*/
+
+.panel {
+    background-color: rgb(15, 15, 15);
+}
+
+.topbar {
+    background-color: rgb(10, 10, 10);
+}
+
+.title {
+    color: white;
+}
+
+.close {
+    color: white;
+}
+
+.close:hover {
+    color: rgb(255, 115, 115);
+}
+
+.text {
+    color: white;
+}
+
+.colorlabel {
+    background-color: white;
+}
+
+.cancel-button {
+    background-color: transparent;
+    border: white 0.1vh solid;
+    color: white;
+}
+
+.continue-button {
+    background-color: white;
+    border: white 0.1vh solid;
+    color: black;
+}
+
+.modaltext {
+    color: white;
+}
+
+.githublink {
+    background-color: rgb(20, 20, 20);
+}
+
+.themebutton {
+    background-color: rgb(20, 20, 20);
+}
+
+
+.notification {
+    background-color: rgba(0, 0, 0, 0.753);
+}
+
+.notification-icon {
+    background-color: rgb(108, 118, 255);
+    color: white;
+}
+
+.notification-text {
+    color: white;
+}
+
+.nameline2 {
+    background-image: linear-gradient(90deg, white, rgba(255, 255, 255, 0));
+}
+
+.namelinetext {
+    color: white;
+}
+
+.crosshair_enable_button {
+    background-color: white;
+}
+
+
+.config-buttons {
+    background-color: rgb(20, 20, 20);
+}
+
+.config-button {
+    background-color: rgb(20, 20, 20);
+    color: white;
+}
+
+.config-button:hover {
+    background-color: rgb(29, 29, 29);
+}
+
+.modal-topleft-text {
+    color: white;
+}
+
+.textbox {
+    background-color: transparent;
+    border: 0.2vh rgb(22, 22, 22) solid;
+    color: white;
+}
+
+.config-container {
+    background-color: rgb(15, 15, 15);
+}
+
+.config-container-topbar {
+    background-color: rgb(10, 10, 10);
+}
+
+.config {
+    background-color: rgb(22, 22, 22);
+}
+
+.config-name {
+    color: white;
+}
+
+.config-icon  {
+    color: white;
+}
+
+.deleteicon:hover {
+    color: rgb(255, 96, 96);
+    opacity: 0.8;
+}
+
+.loadbutton {
+    background-color: transparent;
+    border: white 0.15vh solid;
+    color: white;
+}
+
+.loadbutton:hover {
+    opacity: 0.8;
+}
+
+.undertext {
+    color: rgb(207, 207, 207);
+}
+
+.delete-confirmation {
+    background-color: rgba(0, 0, 0, 0.4);
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File</title>
+    <style>
+        body {
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .center {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .textinput {
+            stroke: none;
+            outline: none;
+            border: rgb(20, 20, 20) solid;
+            background-color: transparent;
+            border-radius: 5vh;
+            height: 20vh;
+            width: 150vh;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .continue-button {
+            position: absolute;
+            z-index: 2;
+            bottom: 8vh;
+            right: 8vh;
+            background-color: rgb(255, 255, 255);
+            border: rgb(255, 255, 255) 1vh solid;               
+            font-family: Arial, Helvetica, sans-serif;
+            width: 80vh;
+            height: 20vh;
+            border-radius: 50vh;
+            font-size: 10vh;
+            color: rgb(0, 0, 0);
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+
+        .continue-button:hover {
+            scale: 0.95;
+            opacity: 0.9;
+        }
+
+        .bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(15, 15, 15);
+            border-radius: 5vh;
+            box-shadow: 0 1vh 1.5vh rgba(0, 0, 0, 0.5);
+        }
+
+        .text {
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            width: 70%;
+        }
+
+        .cancel-button {
+            position: absolute;
+            z-index: 2;
+            bottom: 8vh;
+            left: 8vh;
+            background-color: transparent;
+            border: rgb(255, 255, 255) 1vh solid;
+            font-family: Arial, Helvetica, sans-serif;
+            width: 80vh;
+            height: 20vh;
+            border-radius: 50vh;
+            font-size: 10vh;
+            color: rgb(255, 255, 255);
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+
+        .cancel-button:hover {
+            scale: 0.95;
+            opacity: 0.9;
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+    <div class="bg"></div>
+
+    <span class="material-symbols-rounded" style="color: orange; font-size: 10vh; position: absolute; top: 8vh; left: 8vh;">warning</span>
+
+    <div class="center">
+        <span class="text" style="font-size: 10vh;">This Theme contains a link to an image. Are you sure you want to load this theme?</span> 
+    </div>
+    <div class="center" style="top: 28vh;">
+        <span class="text" style="color: rgb(158, 158, 158); font-size: 10vh;" id="imgurl">URL: </span> 
+    </div>
+    <button class="continue-button">Load</button>
+    <button class="cancel-button">Cancel</button>
+
+    <script>
+        document.getElementsByClassName("continue-button")[0].addEventListener("click", () => {
+            app.continue()
+        })
+
+        document.getElementsByClassName("cancel-button")[0].addEventListener("click", () => {
+            app.cancel()
+        })
+    </script>
+</body>
+</html>

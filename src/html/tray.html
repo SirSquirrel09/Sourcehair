@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sourcehair Tray</title>
+    <link rel="stylesheet" href="../css/tray.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+    <div class="center">
+        <div class="panel">
+            <div class="topbar">
+                <div class="topbarcontent">
+                    <span class="material-symbols-rounded backbutton" id="backbutton">arrow_back</span>
+                    <span class="title">Sourcehair 0.5.0</span>
+                    <span class="material-symbols-rounded backbutton" id="closebutton">close</span>
+                </div>
+            </div>
+
+            <div class="content" id="content-buttons">
+                <div class="buttons">
+                    <div class="button-container"><button class="control-button" id="bringtofront-button"><span class="material-symbols-rounded">flip_to_front</span>Bring Overlay to Front</button></div>
+                    <div class="button-container"><button class="control-button" id="reloadhotkeys-button"><span class="material-symbols-rounded">refresh</span>Reload Global Keybinds</button></div>
+                    <div class="button-container"><button class="control-button" id="changelog-button"><span class="material-symbols-rounded">import_contacts</span>Changelog</button></div>
+                    <div class="button-container"><button class="control-button" id="versions-button"><span class="material-symbols-rounded">info</span>Versions</button></div>
+                    <div class="button-container"><button class="control-button" id="about-button"><span class="material-symbols-rounded">help</span>About</button></div>
+                    <div class="button-container"><button class="control-button" id="quit-button"><span class="material-symbols-rounded">close</span>Quit</button></div>
+                </div>
+            </div>
+
+            <div class="content hidden" id="about-page">
+                <p class="text" id="about-text"></p>
+            </div>
+            <div class="content hidden" id="versions-page">
+                <p id="ver1">Electron Version:</p>
+                <p id="ver2">Node Version:</p>
+                <p id="ver3">Chrome Version:</p>
+                <p id="ver4">Sourcehair Version:</p>
+            </div>
+            <div class="content hidden" id="changelog-page">
+                <p class="text" id="changelog-text"></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

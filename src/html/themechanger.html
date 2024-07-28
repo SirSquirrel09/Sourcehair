@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/themeChanger.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>Sourcehair</title>
+</head>
+<body>
+    <div class="background">
+        <div class="topbar">
+            <div class="topbar2">
+                <span class="title noselect">Sourcehair 0.5.0</span>
+                <div class="closecontainer" id="closebutton">
+                    <span class="material-symbols-rounded close noselect">close</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="theme" style="display: none;" id="themeContainer">
+            <span class="themeName">ThemeName</span>
+            <span class="themeAuthor">by ThemeAuthor</span>
+
+            <button class="themeButton">Load</button>
+        </div>
+
+        <div class="theme" style="display: none;" id="noManifestContainer">
+            <span class="themeName">ThemeName.css</span>
+            <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+                <span style="color: white; font-size: 3vh; font-family: Arial, Helvetica, sans-serif;">Manifest not correct!</span>
+            </div>
+        </div>
+
+        <div id="allThemes"></div>
+    </div> 
+
+    <script src="../js/themechangewindow.js"></script>
+</body>
+</html>
