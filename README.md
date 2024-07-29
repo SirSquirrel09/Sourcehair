@@ -12,13 +12,13 @@ How to hide the crosshair:
 - Control + P
 
 ## Themes
-How to install a theme:
+### How to install a theme:
 - Download the css file
 - Go to %appdata%
 - Go to "Sourcehair Configs"
 - Add the css file into the "themes" folder
 
-How to create a theme:
+### How to create a theme:
 - Create a copy of the "default.css" file
 - Rename the file so its name is not "default.css"
 - Edit the top section to include the name of you theme and your name as the author
@@ -32,10 +32,15 @@ How to add a background image to your theme:
  */
 ```
 
-How to modify the background image:
-- 
+ ### How to modify the background image:
+Add the following to your css file:
+```
+.PanelBGImage {
+ 
+}
+```
 
-How to load a theme:
+### How to load a theme:
 - Press Control+Y to open the Sourcehair menu
 - Click on the top button on the bottom left of your screen
 - Now Press Load on the theme you want to load
