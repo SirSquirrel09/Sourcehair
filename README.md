@@ -3,6 +3,13 @@
 </div>
 Sourcehair is an free and open-source Crosshair Overlay for any game!
 
+## Usage
+How to open the crosshair editor:
+- Control + Y
+
+How to hide the crosshair:
+- Control + P
+
 ## Themes
 How to install a theme:
 - Download the css file
@@ -17,6 +24,7 @@ How to create a theme:
 - Edit the .css file to your liking
 
 How to add a background image to your theme:
+- Add the following to your theme css file:
 - /*
 - @img:The image url
 - */
