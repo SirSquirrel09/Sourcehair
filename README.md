@@ -36,7 +36,7 @@ Add the following to your theme css file:
 Add the following to your theme css file:
 ```
 .PanelBGImage {
- 
+ Your css like "filter" or "opacity"
 }
 ```
 
