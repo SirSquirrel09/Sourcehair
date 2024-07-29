@@ -4,3 +4,19 @@
 Sourcehair is an free and open-source Crosshair Overlay for any game!
 
 ## Themes
+How to install a theme:
+- Download the css file
+- Go to %appdata%
+- Go to "Sourcehair Configs"
+- Add the css file into the "themes" folder
+
+How to create a theme:
+- Create a copy of the "default.css" file
+- Rename the file so its name is not "default.css"
+- Edit the top section to include the name of you theme and your name as the author
+- Edit the .css file to your liking
+
+How to add a background image to your theme:
+- /*
+- @img:The image url
+- */
