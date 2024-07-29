@@ -25,7 +25,7 @@ How to hide the crosshair:
 - Edit the .css file to your liking
 
 How to add a background image to your theme:
-- Add the following to your theme css file:
+Add the following to your theme css file:
 ```
  /*
  @img:The image url
@@ -33,7 +33,7 @@ How to add a background image to your theme:
 ```
 
  ### How to modify the background image:
-Add the following to your css file:
+Add the following to your theme css file:
 ```
 .PanelBGImage {
  
