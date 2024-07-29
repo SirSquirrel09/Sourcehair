@@ -20,3 +20,8 @@ How to add a background image to your theme:
 - /*
 - @img:The image url
 - */
+
+How to load a theme:
+- Press Control+Y to open the Sourcehair menu
+- Click on the top button on the bottom left of your screen
+- Now Press Load on the theme you want to load
