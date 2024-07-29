@@ -5,10 +5,10 @@
 Sourcehair is an free and open-source Crosshair Overlay for any game!
 
 ## Usage
-How to open the crosshair editor:
+### How to open the crosshair editor:
 - Control + Y
 
-How to hide the crosshair:
+### How to hide the crosshair:
 - Control + P
 
 ## Themes
