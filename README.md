@@ -26,9 +26,14 @@ How to create a theme:
 
 How to add a background image to your theme:
 - Add the following to your theme css file:
-- /*
-- @img:The image url
-- */
+```
+ /*
+ @img:The image url
+ */
+```
+
+How to modify the background image:
+- 
 
 How to load a theme:
 - Press Control+Y to open the Sourcehair menu
