@@ -24,7 +24,7 @@ Sourcehair is an free and open-source Crosshair Overlay for any game.
 - Edit the top section to include the name of you theme and your name as the author
 - Edit the .css file to your liking
 
-How to add a background image to your theme:
+### How to add a background image to your theme:
 Add the following to your theme css file:
 ```
  /*
