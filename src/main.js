@@ -410,16 +410,25 @@ ipcMain.on("deleteconfig", (event, configname) => {
 ipcMain.on("loadConfig", (event, configname) => {
     if(fs.existsSync(AppData+Folder+`/Configs/${configname}.json`)) { 
         if(fs.readFileSync(AppData+Folder+`/Configs/${configname}.json`, "utf8") !== "") {
-             const CrosshairJSON = fs.readFileSync(AppData+Folder+`/Configs/${configname}.json`, "utf8")
-             OverlayWindow.webContents.send("crosshairdata", CrosshairJSON)
+            const CrosshairJSON = fs.readFileSync(AppData+Folder+`/Configs/${configname}.json`, "utf8")
+            const CrosshairData = JSON.parse(CrosshairJSON)
+            let CanLoad = true
+            if(CrosshairData.Image.src != "undefined") {
+                if(!fs.readdirSync(AppData+Folder+"/images").includes(CrosshairData.Image.src)) {
+                    CanLoad = false
+                    OverlayWindow.webContents.send("warning", "Unable to load: Image not found", "Config")
+                }
+            }
+            if(CanLoad) {
+                OverlayWindow.webContents.send("crosshairdata", CrosshairJSON)
+                if(CrosshairData.Image.src != "undefined") {
+                    fs.writeFileSync(path.join(__dirname, "../imagesaves/"+CrosshairData.Image.src), fs.readFileSync(AppData+Folder+"/images/"+CrosshairData.Image.src))
+                 }
+            }
 
-             const CrosshairData = JSON.parse(CrosshairJSON)
              fs.readdirSync(path.join(__dirname, "../imagesaves")).forEach((item) => {
                 fs.unlinkSync(path.join(__dirname, "../imagesaves/"+item))
             })
-             if(CrosshairData.Image.src != "undefined") {
-                fs.writeFileSync(path.join(__dirname, "../imagesaves/"+CrosshairData.Image.src), fs.readFileSync(AppData+Folder+"/images/"+CrosshairData.Image.src))
-             }
         }
      }
 })
