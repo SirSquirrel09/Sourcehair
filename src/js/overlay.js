@@ -48,6 +48,11 @@ function getConfigJSON() {
             "left": getCrosshairPartEnabled("left"),
             "right": getCrosshairPartEnabled("right"),
             "bottom": getCrosshairPartEnabled("bottom")
+        },
+        "Image": {
+            "size": document.getElementById("imgsize_slider").value,
+            "opacity": document.getElementById("imgopacity_slider").value,
+            "src": document.querySelector(".MiddleImage").getAttribute("imgname")
         }
     }
     return SavedJson
@@ -254,8 +259,8 @@ document.body.addEventListener("wheel", (e) => {
     if(EditAvaible2) {
         if(e.deltaY > 1) {
             ScrollVH -= 2
-            if(ScrollVH <= -15) {
-                ScrollVH = -15 //-8
+            if(ScrollVH <= -20) {
+                ScrollVH = -20 //-8
             }
             document.querySelectorAll(".inpanel-scroll")[0].style.top = `${ScrollVH}vh`
         } else {
@@ -293,5 +298,21 @@ document.getElementById("dotborder_slider").addEventListener("input", () => {
         document.getElementById("center_border").innerHTML = ".middle {border: none;}"
     } else {
         document.getElementById("center_border").innerHTML = `.middle {border: ${document.getElementById("dotborder_slider").value/50}vh solid ${document.getElementById("dotbordercolorselector").value}}`
+    }
+})
+
+document.getElementById("ImageChooseButton").addEventListener("click", () => {
+    app.openImageChoose()
+})
+
+document.getElementById("imgopacity_slider").addEventListener("input", () => {
+  document.getElementById("imageopacity").innerHTML = `.MiddleImage {opacity: ${1-(document.getElementById("imgopacity_slider").value/100)};}`
+})
+
+document.getElementById("imgsize_slider").addEventListener("input", () => {
+    if(document.getElementById("imgsize_slider").value == 0) {
+        document.getElementById("imagesize").innerHTML = ".MiddleImage {width: 0vh; height: 0vh;}"
+    } else {
+        document.getElementById("imagesize").innerHTML = `.MiddleImage {width: ${document.getElementById("imgsize_slider").value/10}vh; height: ${document.getElementById("imgsize_slider").value/10}vh;}`
     }
 })

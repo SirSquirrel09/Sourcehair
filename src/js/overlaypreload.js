@@ -2,6 +2,41 @@ const { ipcRenderer, contextBridge } = require("electron")
 let CrosshairHidden = false
 let ConfigSelected = undefined
 
+function getConfigJSON() {
+    const SavedJson = {
+        "Crosshair": {
+            "color": `${document.getElementById("colorselector").value}`,
+            "gap": `${document.getElementById("gap_slider").value}`,
+            "width": `${document.getElementById("width_slider").value}`,
+            "length": `${document.getElementById("length_slider").value}`,
+            "border": `${document.getElementById("border_slider").value}`,
+            "bordercolor": `${document.getElementById("bordercolorselector").value}`
+        },
+        "Centerdot": {
+            "color": `${document.getElementById("colorselector2").value}`,
+            "size": `${document.getElementById("center_size_slider").value}`,
+            "radius": `${document.getElementById("center_radius_slider").value}`,
+            "border": `${document.getElementById("dotborder_slider").value}`,
+            "bordercolor": `${document.getElementById("dotbordercolorselector").value}`
+        },
+        "CrosshairParts": {
+            "top": getCrosshairPartEnabled("top"),
+            "left": getCrosshairPartEnabled("left"),
+            "right": getCrosshairPartEnabled("right"),
+            "bottom": getCrosshairPartEnabled("bottom")
+        },
+        "Image": {
+            "size": document.getElementById("imgsize_slider").value,
+            "opacity": document.getElementById("imgopacity_slider").value,
+            "src": document.querySelector(".MiddleImage").getAttribute("imgname")
+        }
+    }
+    return SavedJson
+}
+
+function getCrosshairPartEnabled(part) {
+    if(document.getElementById(part).style.opacity == "" || document.getElementById(part).style.opacity == "1") {return true}else{return false}
+}
 
 ipcRenderer.on("openedit", () => {
     document.getElementById("panel").style.scale = "1"
@@ -122,6 +157,23 @@ ipcRenderer.on("crosshairdata", (event, data) => {
     if(CrosshairData.CrosshairParts.left == false) {document.getElementById("left").style.opacity = "0"}
     if(CrosshairData.CrosshairParts.right == false) {document.getElementById("right").style.opacity = "0"}
     if(CrosshairData.CrosshairParts.bottom == false) {document.getElementById("bottom").style.opacity = "0"}
+
+    //Image
+    if(CrosshairData.Image.src == "undefined") {
+        document.querySelector(".MiddleImage").setAttribute("imgname", "undefined")
+    } else {
+        document.querySelector(".MiddleImage").src = "../../imagesaves/"+CrosshairData.Image.src
+    }
+    
+    if(CrosshairData.Image.size == 0) {
+        document.getElementById("imagesize").innerHTML = ".MiddleImage {width: 0vh; height: 0vh;}"
+    } else {
+        document.getElementById("imagesize").innerHTML = `.MiddleImage {width: ${CrosshairData.Image.size/10}vh; height: ${CrosshairData.Image.size/10}vh;}`
+    }
+     document.getElementById("imageopacity").innerHTML = `.MiddleImage {opacity: ${1-(CrosshairData.Image.opacity/100)};}`
+
+     document.getElementById("imgsize_slider").value = CrosshairData.Image.size
+     document.getElementById("imgopacity_slider").value = CrosshairData.Image.opacity
 })
 
 ipcRenderer.on("confignameinput", (event, input) => {
@@ -185,6 +237,16 @@ ipcRenderer.on("noIMG", () => {
         document.querySelector(".PanelBGImage").style.display = "none"
 })
 
+ipcRenderer.on("refreshImage", (event, name) => { // src="../../imagesaves/crosshair.png"
+    document.querySelector(".MiddleImage").src = `../../imagesaves/${name}`
+    document.querySelector(".MiddleImage").setAttribute("imgname", name)
+})
+
+ipcRenderer.on("fromtray_quit", () => {
+    const SavedJson = getConfigJSON()
+    ipcRenderer.send("close", JSON.stringify(SavedJson))
+})
+
 document.addEventListener("DOMContentLoaded", () => {
     PreloadPanel()
     document.getElementById("deletebutton").addEventListener("click", () => {
@@ -210,7 +272,8 @@ contextBridge.exposeInMainWorld("app", {
     saveConfig: (name, json) => ipcRenderer.send("saveConfig", name, json),
     getConfigs: () => ipcRenderer.send("requestConfigs"),
     setEditAvaiable: (truefalse) => ipcRenderer.send("setEditAvaiable", truefalse),
-    setGithubOpenable: (truefalse) => ipcRenderer.send("setGithubOpenable", truefalse)
+    setGithubOpenable: (truefalse) => ipcRenderer.send("setGithubOpenable", truefalse),
+    openImageChoose: () => ipcRenderer.send("OpenImageSelection")
 })
 
 function CreateNotification(text, title) {

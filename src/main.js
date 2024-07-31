@@ -2,6 +2,7 @@ const { BrowserWindow, app, globalShortcut, ipcMain, shell, Tray, screen, dialog
 const fs = require("fs")
 const path = require("path")
 const AppData = app.getPath("appData")
+const Crypto = require("crypto") //Using this for checking all the image hashes so there are no duplicates in the images folder to save disk space.
 const Folder = "/Sourcehair Configs"
 const packageInfo = require("../packageInfo.js")
 let EditOpen = false
@@ -110,6 +111,9 @@ function CheckFolderIntegrity() {
         if(!fs.existsSync(AppData+Folder+"/themes")) {
             fs.mkdirSync(AppData+Folder+"/themes")
         }
+        if(!fs.existsSync(AppData+Folder+"/images")) {
+            fs.mkdirSync(AppData+Folder+"/images")
+        }
         if(!fs.existsSync(AppData+Folder+"/themes/default.css")) {
             fs.writeFileSync(AppData+Folder+"/themes/default.css", fs.readFileSync("defaultTheme.txt", "utf-8"))
         }
@@ -162,12 +166,15 @@ function createFolderStructure() {
         if(!fs.existsSync(AppData+Folder+"/Configs")) {
             fs.mkdirSync(AppData+Folder+"/Configs")
         }
+        if(!fs.existsSync(AppData+Folder+"/images")) {
+            fs.mkdirSync(AppData+Folder+"/images")
+        }
         if(!fs.existsSync(AppData+Folder+"crosshair.json")) {
             fs.writeFileSync(AppData+Folder+"/crosshair.json", "")
         }
     }
     if(!fs.existsSync(AppData+Folder+"/Configs/default.json")) {
-        fs.writeFileSync(AppData+Folder+"/Configs/default.json", `{"Crosshair":{"color":"#ffffff","gap":"40","width":"20","length":"10","border":"0","bordercolor":"#000000"},"Centerdot":{"color":"#ffffff","size":"0","radius":"0","border":"0","bordercolor":"#000000"},"CrosshairParts":{"top":true,"left":true,"right":true,"bottom":true}}`)
+        fs.writeFileSync(AppData+Folder+"/Configs/default.json", `{"Crosshair":{"color":"#ffffff","gap":"40","width":"20","length":"10","border":"0","bordercolor":"#000000"},"Centerdot":{"color":"#ffffff","size":"0","radius":"0","border":"0","bordercolor":"#000000"},"CrosshairParts":{"top":true,"left":true,"right":true,"bottom":true},"Image":{"size":0,"opacity":0,"src":"undefined"}}`)
     }
     if(!fs.existsSync(AppData+Folder+"/themes/default.css")) {
         fs.writeFileSync(AppData+Folder+"/themes/default.css", fs.readFileSync("defaultTheme.txt", "utf-8"))
@@ -300,6 +307,18 @@ function SetOverlayTheme(content, name) {
     OverlayWindow.webContents.send("confirmation", "Loaded Theme", "Themes")
 }
 
+function clearImageSaves() {
+    let Dir = path.join(__dirname, `../imagesaves`)
+    fs.readdirSync(Dir).forEach((item) => {
+        fs.unlinkSync(`${Dir}/${item}`)
+    })
+}
+
+function getIMG() {
+    let Dir = path.join(__dirname, `../imagesaves`)
+    OverlayWindow.webContents.send("refreshImage", fs.readdirSync(Dir)[0])
+}
+
 app.on("window-all-closed", () => {
     app.quit()
 })
@@ -313,9 +332,15 @@ app.whenReady().then(() => {
     createShortcuts()
     createSystemTrayIcon()
     loadCurrentTheme()
+    getIMG()
 })
 
 ipcMain.on("close", (event, crosshairsettings) => {
+    let Dir = path.join(__dirname, `../imagesaves`)
+    fs.readdirSync(Dir).forEach((item) => {
+        fs.writeFileSync(AppData+Folder+"/images/"+item, fs.readFileSync(path.join(__dirname, "../imagesaves/"+item)))
+    })
+
     WriteCrosshairJSON(crosshairsettings)
     globalShortcut.unregisterAll()
     app.quit()
@@ -347,6 +372,10 @@ ipcMain.on("saveConfig", (event, configname, json) => {
         fs.writeFileSync(AppData+Folder+`/Configs/${configname}.json`, json)
         console.log("Saving Config: "+configname)
         OverlayWindow.webContents.send("confirmation", `${configname}`, "Saved Config")
+
+        if(JSON.parse(json).Image.src != "undefined") {
+            fs.writeFileSync(AppData+Folder+"/images/"+JSON.parse(json).Image.src, fs.readFileSync(path.join(__dirname, "../imagesaves/"+JSON.parse(json).Image.src)))
+        }
     }
 })
 
@@ -376,16 +405,24 @@ ipcMain.on("loadConfig", (event, configname) => {
         if(fs.readFileSync(AppData+Folder+`/Configs/${configname}.json`, "utf8") !== "") {
              const CrosshairJSON = fs.readFileSync(AppData+Folder+`/Configs/${configname}.json`, "utf8")
              OverlayWindow.webContents.send("crosshairdata", CrosshairJSON)
+
+             const CrosshairData = JSON.parse(CrosshairJSON)
+             fs.readdirSync(path.join(__dirname, "../imagesaves")).forEach((item) => {
+                fs.unlinkSync(path.join(__dirname, "../imagesaves/"+item))
+            })
+             if(CrosshairData.Image.src != "undefined") {
+                fs.writeFileSync(path.join(__dirname, "../imagesaves/"+CrosshairData.Image.src), fs.readFileSync(AppData+Folder+"/images/"+CrosshairData.Image.src))
+             }
         }
      }
 })
 
 ipcMain.on("opengithub", () => {
     if(GithubOpenable) {
-        shell.openExternal("https://github.com/SirSquirrel09")
+        shell.openExternal("https://github.com/SirSquirrel09/Sourcehair")
         OverlayWindow.webContents.send("closeedit")
         OverlayWindow.setIgnoreMouseEvents(true)
-        OverlayWindow.webContents.send("notification", "Closed.", "Interface")
+        OverlayWindow.webContents.send("notification", "Closed", "Interface")
         EditOpen = false
     } else {
         OverlayWindow.webContents.send("warning", "Unable to open Github", "Warning")
@@ -396,6 +433,9 @@ ipcMain.on("fileexist_continue", () => {
     OverlayWindow.webContents.send("show")
     OverlayWindow.webContents.send("confirmation", StoreConfigData.name, "Saved Config")
     fs.writeFileSync(AppData+Folder+`/Configs/${StoreConfigData.name}.json`, StoreConfigData.json)
+    if(JSON.parse(StoreConfigData.json).CrosshairData.Image.src != "undefined") {
+        fs.writeFileSync(AppData+Folder+"/images/"+JSON.parse(StoreConfigData.json).CrosshairData.Image.src, fs.readFileSync(path.join(__dirname, "../imagesaves/"+JSON.parse(StoreConfigData.json).CrosshairData.Image.src)))
+    }
     OverlayWindow.setIgnoreMouseEvents(false)
     FileExistWindow.close()
 })
@@ -408,7 +448,7 @@ ipcMain.on("fileexist_cancel", () => {
 })
 
 ipcMain.on("tray_quitapp", () => {
-    app.quit()
+    OverlayWindow.webContents.send("fromtray_quit")
 })
 
 ipcMain.on("tray_close", () => {
@@ -483,4 +523,35 @@ ipcMain.on("warning-loadTheme", (event, content, name) => {
 ipcMain.on("warning-cancel", () => {
     OverlayWindow.show()
     WarningWindow.close()
+})
+
+ipcMain.on("OpenImageSelection", () => {
+    dialog.showOpenDialog(OverlayWindow, {defaultPath: app.getPath("pictures")}).then((e) => {
+       if(!e.canceled) {
+         fs.readFile(e.filePaths[0], (err, data) => {
+             if(err) {
+                 throw err
+             }
+             clearImageSaves()
+             let date = new Date
+             let Name = `crosshair_${date.getTime()}.png`
+
+             fs.readdirSync(AppData+Folder+"/images").forEach((image) => {
+                const imgHash = Crypto.createHash("sha256").update(fs.readFileSync(AppData+Folder+"/images/"+image)).digest("hex")
+                const THISHash = Crypto.createHash("sha256").update(data).digest("hex")
+                if(imgHash==THISHash) {
+                    Name = image
+                 }
+             })
+             fs.writeFile(path.join(__dirname, `../imagesaves/${Name}`), data, (err) => {
+                 if(err) {
+                    throw err
+                 } else {
+                    OverlayWindow.webContents.send("confirmation", `Imported Image`, "Image")
+                    OverlayWindow.webContents.send("refreshImage", Name)
+                 }
+            })
+         })
+       }
+    })
 })
