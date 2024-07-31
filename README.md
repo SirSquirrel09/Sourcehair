@@ -4,6 +4,9 @@
 
 Sourcehair is an free and open-source Crosshair Overlay for any game.
 
+## Issues
+Please report any issue you might encounter while using Sourcehair on this Github page.
+
 ## Usage
 ### How to open the crosshair editor:
 - Control + Y
