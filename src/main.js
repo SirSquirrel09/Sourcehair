@@ -319,12 +319,19 @@ function getIMG() {
     OverlayWindow.webContents.send("refreshImage", fs.readdirSync(Dir)[0])
 }
 
+function createImagesaves() {
+    if(!fs.existsSync(path.join(__dirname, "../imagesaves"))) {
+        fs.mkdirSync(path.join(__dirname, "../imagesaves"))
+    }
+}
+
 app.on("window-all-closed", () => {
     app.quit()
 })
 
 app.whenReady().then(() => {
     console.log(`[Sourcehair] Launching using Electron ${process.versions.electron}`)
+    createImagesaves()
     createFolderStructure()
     CheckFolderIntegrity()
     createOverlay()
