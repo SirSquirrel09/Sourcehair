@@ -159,10 +159,12 @@ ipcRenderer.on("crosshairdata", (event, data) => {
     if(CrosshairData.CrosshairParts.bottom == false) {document.getElementById("bottom").style.opacity = "0"}
 
     //Image
-    if(CrosshairData.Image.src == "undefined") {
-        document.querySelector(".MiddleImage").setAttribute("imgname", "undefined")
-    } else {
-        document.querySelector(".MiddleImage").src = "../../imagesaves/"+CrosshairData.Image.src
+    if(CrosshairData.Image.size != 0) {
+        if(CrosshairData.Image.src == "undefined") {
+            document.querySelector(".MiddleImage").setAttribute("imgname", "undefined")
+        } else {
+            document.querySelector(".MiddleImage").src = "../../imagesaves/"+CrosshairData.Image.src
+        }
     }
     
     if(CrosshairData.Image.size == 0) {

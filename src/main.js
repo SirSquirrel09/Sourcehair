@@ -416,11 +416,13 @@ ipcMain.on("loadConfig", (event, configname) => {
             if(CrosshairData.Image.src != "undefined") {
                 if(!fs.readdirSync(AppData+Folder+"/images").includes(CrosshairData.Image.src)) {
                     CanLoad = false
-                    OverlayWindow.webContents.send("warning", "Unable to load: Image not found", "Config")
+                    if(CrosshairData.Image.size != 0) {
+                        OverlayWindow.webContents.send("warning", "Image not found", "Config")
+                    }
                 }
             }
+            OverlayWindow.webContents.send("crosshairdata", CrosshairJSON)
             if(CanLoad) {
-                OverlayWindow.webContents.send("crosshairdata", CrosshairJSON)
                 if(CrosshairData.Image.src != "undefined") {
                     fs.writeFileSync(path.join(__dirname, "../imagesaves/"+CrosshairData.Image.src), fs.readFileSync(AppData+Folder+"/images/"+CrosshairData.Image.src))
                  }
