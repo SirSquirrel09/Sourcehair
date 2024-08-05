@@ -3,6 +3,10 @@
 </div>
 
 <div align="center">
+My image disappeared 💀💀💀💀
+</div>
+
+<div align="center">
 Sourcehair is an free and open-source Crosshair Overlay for any game.
 </div>
 
