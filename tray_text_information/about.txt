@@ -1,1 +1,4 @@
-Sourcehair is a open-source software developed by SirSquirrel09 on GitHub
+Sourcehair is a open-source Crosshair Overlay for any game developed by SirSquirrel09
+
+If you encounter any problems while using Sourcehair please report them on the official GitHub Repository
+https://github.com/SirSquirrel09/Sourcehair
