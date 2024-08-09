@@ -6,10 +6,6 @@
 Sourcehair is an free and open-source Crosshair Overlay for any game.
 </div>
 
-<div align="center">
-Doesn't work 💀💀💀💀💀💀💀💀💀💀💀💀💀💀💀
-</div>
-
 ## Issues
 Please report any issue you might encounter while using Sourcehair on this Github page.
 
