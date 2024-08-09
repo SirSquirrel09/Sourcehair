@@ -1,7 +1,7 @@
 {
   "packageName": "Sourcehair",
   "name": "crosshair-overlay",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@electron/packager": "^18.3.3",
     "electron": "^30.0.1"
   }
 }

@@ -115,7 +115,7 @@ function CheckFolderIntegrity() {
             fs.mkdirSync(AppData+Folder+"/images")
         }
         if(!fs.existsSync(AppData+Folder+"/themes/default.css")) {
-            fs.writeFileSync(AppData+Folder+"/themes/default.css", fs.readFileSync("defaultTheme.txt", "utf-8"))
+            fs.writeFileSync(AppData+Folder+"/themes/default.css", fs.readFileSync(path.join(__dirname, "../defaultTheme.txt"), "utf-8"))
         }
     }
 }
@@ -139,7 +139,7 @@ function createTrayWindow() {
     TrayWindow.loadFile(path.join(__dirname, "./html/tray.html"))
 
     TrayWindow.webContents.send("versions", {"electron": process.versions.electron, "node": process.versions.node, "chrome": process.versions.chrome, "sourcehair": app.getVersion()})
-    TrayWindow.webContents.send("text", [fs.readFileSync("tray_text_information/about.txt", "utf-8"),fs.readFileSync("tray_text_information/changelog.txt", "utf-8")])
+    TrayWindow.webContents.send("text", [fs.readFileSync(path.join(__dirname, "../tray_text_information/about.txt"), "utf-8"),fs.readFileSync(path.join(__dirname, "../tray_text_information/changelog.txt"), "utf-8")])
 }
 
 function createThemeWindow() {
@@ -177,7 +177,7 @@ function createFolderStructure() {
         fs.writeFileSync(AppData+Folder+"/Configs/default.json", `{"Crosshair":{"color":"#ffffff","gap":"40","width":"20","length":"10","border":"0","bordercolor":"#000000"},"Centerdot":{"color":"#ffffff","size":"0","radius":"0","border":"0","bordercolor":"#000000"},"CrosshairParts":{"top":true,"left":true,"right":true,"bottom":true},"Image":{"size":0,"opacity":0,"src":"undefined"}}`)
     }
     if(!fs.existsSync(AppData+Folder+"/themes/default.css")) {
-        fs.writeFileSync(AppData+Folder+"/themes/default.css", fs.readFileSync("defaultTheme.txt", "utf-8"))
+        fs.writeFileSync(AppData+Folder+"/themes/default.css", fs.readFileSync(path.join(__dirname, "../defaultTheme.txt"), "utf-8"))
     }
 }
 
