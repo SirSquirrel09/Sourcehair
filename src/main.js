@@ -47,8 +47,7 @@ function createConfigNameInput() {
         skipTaskbar: true,
         alwaysOnTop: true,
         webPreferences: {
-            preload: __dirname+"/js/textboxpreload.js",
-            devTools: false
+            preload: __dirname+"/js/textboxpreload.js"
         }
     })
 
@@ -65,8 +64,7 @@ function OpenFileExists() {
         skipTaskbar: true,
         alwaysOnTop: true,
         webPreferences: {
-            preload: __dirname+"/js/fileexistpreload.js",
-            devTools: false
+            preload: __dirname+"/js/fileexistpreload.js"
         }
     })
 
@@ -83,8 +81,7 @@ function ShowWarning(url, content, name) {
         skipTaskbar: true,
         alwaysOnTop: true,
         webPreferences: {
-            preload: __dirname+"/js/warningpreload.js",
-            devTools: false
+            preload: __dirname+"/js/warningpreload.js"
         }
     })
     
@@ -136,8 +133,7 @@ function createTrayWindow() {
         skipTaskbar: true,
         alwaysOnTop: true,
         webPreferences: {
-            preload: __dirname+"/js/tray.js",
-            devTools: false
+            preload: __dirname+"/js/tray.js"
         }
     })
     TrayWindow.loadFile(path.join(__dirname, "./html/tray.html"))
@@ -155,8 +151,7 @@ function createThemeWindow() {
         resizable: false,
         icon: __dirname+"icon/SourcehairLogo2.ico",
         webPreferences: {
-            preload: __dirname+"/js/themechangepreload.js",
-            devTools: false,
+            preload: __dirname+"/js/themechangepreload.js"
         }
     })
     ThemeChangeWindow.loadFile(path.join(__dirname, "./html/themechanger.html"))
@@ -330,23 +325,6 @@ function createImagesaves() {
     }
 }
 
-function createReinstallScript() {
-    let script = `
-    @echo off
-    cls
-    echo This Script is meant to be used when your Sourcehair Files are corrupt and it will reinstall Sourcehair files.
-    echo Do you want to proceed ?
-    pause >nul 
-    start Sourcehair.exe reinstallfiles
-    `
-
-    if(fs.existsSync(path.join(__dirname, "../../../Sourcehair.exe"))) {
-        if(!fs.existsSync(path.join(__dirname, "../../../test.cmd"))) {
-            fs.writeFileSync(path.join(__dirname, "../../../Reinstall.cmd"), script)
-        }
-    }
-}
-
 app.on("window-all-closed", () => {
     app.quit()
 })
@@ -362,7 +340,6 @@ app.whenReady().then(() => {
     createSystemTrayIcon()
     loadCurrentTheme()
     getIMG()
-    createReinstallScript()
 })
 
 ipcMain.on("close", (event, crosshairsettings) => {
