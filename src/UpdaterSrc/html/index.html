@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sourcehair Updater</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: rgb(15, 15, 15);
+        }
+
+        .logoContainer {
+            position: absolute;
+            top: 10vh;
+            left: 0;
+            width: 100%;
+            height: 25vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .textContainer {
+            position: absolute;
+            bottom: 5vh;
+            left: 0;
+            width: 100%;
+            height: 10vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        span {
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            user-select: none;
+            -ms-user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            font-size: 8vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="logoContainer">
+        <img src="../logo/SourcehairLogo.png" style="width: 25vh;">
+    </div>
+    <div class="logoContainer" style="top: 32vh;">
+        <img src="../logo/Sourcehair.png" style="width: 80vh;">
+    </div>
+
+    <div class="textContainer">
+        <span id="statusText"></span>
+    </div>
+</body>
+</html>
